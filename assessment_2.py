@@ -96,6 +96,9 @@ class ClickGame:
             fill="blue"
         )
 
+
+# I will add sound functionality later
+
 if __name__ == "__main__":
     root = tk.Tk()
     ClickGame(root)
