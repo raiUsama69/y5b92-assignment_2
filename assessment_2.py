@@ -96,6 +96,8 @@ class ClickGame:
             fill="blue"
         )
 
+
+# This game is in its initial phase
 if __name__ == "__main__":
     root = tk.Tk()
     ClickGame(root)
