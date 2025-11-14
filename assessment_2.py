@@ -98,6 +98,9 @@ class ClickGame:
         )
 
 
+# I will add sound functionality later
+
+
 # This game is in its initial phase
 if __name__ == "__main__":
     root = tk.Tk()
