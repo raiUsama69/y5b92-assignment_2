@@ -8,6 +8,17 @@ class ClickGame:
     def __init__(self, root):
         self.dark_mode = False
         self.paused = False
+        # Load high score from file
+        self.highscore = 0
+        try:
+            with open("highscore.txt", "r") as f:
+                self.highscore = int(f.read().strip())
+        except:
+            self.highscore = 0
+
+            
+        self.highscore_label = tk.Label(root, text=f"High Score: {self.highscore}", font=("Arial", 16))
+        self.highscore_label.pack(pady=5)
 
         self.root = root
         self.root.title("Click the Target Game")
@@ -110,6 +121,15 @@ class ClickGame:
 
 
     def game_over(self):
+        # Check and update high score
+        if self.score > self.highscore:
+            self.highscore = self.score
+            self.highscore_label.config(text=f"High Score: {self.highscore}")
+
+            # Save to file
+            with open("highscore.txt", "w") as f:
+                f.write(str(self.highscore))
+
         self.canvas.create_text(
             200, 150,
             text=f"Game Over!\nFinal Score: {self.score}",
