@@ -93,7 +93,7 @@ class ClickGame:
             200, 150,
             text=f"Game Over!!!!\nFinal Score: {self.score}",
 
-            font=("Arial", 20),
+            font=("Arial", 25),
             fill="blue"
         )
 
