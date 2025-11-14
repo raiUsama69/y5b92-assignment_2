@@ -7,6 +7,7 @@ import random
 class ClickGame:
     def __init__(self, root):
         self.dark_mode = False
+        self.paused = False
 
         self.root = root
         self.root.title("Click the Target Game")
@@ -37,6 +38,13 @@ class ClickGame:
 
         dark_mode_button = tk.Button(button_frame, text="Dark Mode", command=lambda: self.toggle_dark_mode())
         dark_mode_button.grid(row=0, column=2, padx=10)
+
+        pause_button = tk.Button(button_frame, text="Pause", command=lambda: self.pause_game())
+        pause_button.grid(row=0, column=3, padx=10)
+
+        resume_button = tk.Button(button_frame, text="Resume", command=lambda: self.resume_game())
+        resume_button.grid(row=0, column=4, padx=10)
+
 
 
 
@@ -78,6 +86,9 @@ class ClickGame:
     
 
     def move_target(self):
+        if self.paused:
+            return
+
         x = random.randint(0, 350)
         y = random.randint(0, 250)
         self.canvas.coords(self.target, x, y, x + 40, y + 40)
@@ -86,6 +97,9 @@ class ClickGame:
             self.root.after(700, self.move_target)
 
     def countdown(self):
+        if self.paused:
+            return
+
         if self.time_left > 0:
             self.time_left -= 1
             self.time_label.config(text=f"Time Left: {self.time_left}")
@@ -93,6 +107,7 @@ class ClickGame:
         else:
             self.canvas.unbind("<Button-1>")
             self.game_over()
+
 
     def game_over(self):
         self.canvas.create_text(
@@ -130,6 +145,19 @@ class ClickGame:
 
         # Change target colour
         self.canvas.itemconfig(self.target, fill=target_color)
+
+
+    def pause_game(self):
+        self.paused = True
+
+    def resume_game(self):
+        if self.paused:
+            self.paused = False
+            # Restart timers / movement from current state
+            self.move_target()
+            self.countdown()
+
+
 
 # I will add sound functionality later
 
