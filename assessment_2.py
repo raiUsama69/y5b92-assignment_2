@@ -6,6 +6,8 @@ import random
 
 class ClickGame:
     def __init__(self, root):
+        self.dark_mode = False
+
         self.root = root
         self.root.title("Click the Target Game")
 
@@ -32,6 +34,10 @@ class ClickGame:
 
         quit_button = tk.Button(button_frame, text="Quit", command=root.destroy)
         quit_button.grid(row=0, column=1, padx=10)
+
+        dark_mode_button = tk.Button(button_frame, text="Dark Mode", command=lambda: self.toggle_dark_mode())
+        dark_mode_button.grid(row=0, column=2, padx=10)
+
 
 
         # Target
@@ -96,10 +102,39 @@ class ClickGame:
             fill="blue"
         )
 
+    def toggle_dark_mode(self):
+        self.dark_mode = not self.dark_mode
+
+        if self.dark_mode:
+            # Dark mode colours
+            bg = "#222222"
+            fg = "white"
+            canvas_bg = "#333333"
+            target_color = "yellow"
+        else:
+            # Light mode colours
+            bg = "white"
+            fg = "black"
+            canvas_bg = "white"
+            target_color = "red"
+
+        # Apply to window
+        self.root.config(bg=bg)
+
+        # Labels
+        self.score_label.config(bg=bg, fg=fg)
+        self.time_label.config(bg=bg, fg=fg)
+
+        # Canvas
+        self.canvas.config(bg=canvas_bg)
+
+        # Change target colour
+        self.canvas.itemconfig(self.target, fill=target_color)
 
 # I will add sound functionality later
 
 if __name__ == "__main__":
+    
     root = tk.Tk()
     ClickGame(root)
     root.mainloop()
