@@ -91,7 +91,8 @@ class ClickGame:
     def game_over(self):
         self.canvas.create_text(
             200, 150,
-            text=f"Game Over!\nFinal Score: {self.score}",
+            text=f"Game Over!!!!\nFinal Score: {self.score}",
+
             font=("Arial", 20),
             fill="blue"
         )
